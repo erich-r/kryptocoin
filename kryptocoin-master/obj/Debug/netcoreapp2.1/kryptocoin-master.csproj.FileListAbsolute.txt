@@ -1,0 +1,11 @@
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.csprojAssemblyReference.cache
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.csproj.CoreCompileInputs.cache
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.AssemblyInfoInputs.cache
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.AssemblyInfo.cs
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/bin/Debug/netcoreapp2.1/kryptocoin-master.deps.json
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/bin/Debug/netcoreapp2.1/kryptocoin-master.runtimeconfig.json
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/bin/Debug/netcoreapp2.1/kryptocoin-master.runtimeconfig.dev.json
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/bin/Debug/netcoreapp2.1/kryptocoin-master.dll
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/bin/Debug/netcoreapp2.1/kryptocoin-master.pdb
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.dll
+/home/rhobby/Documenti/Development/Cs/kryptocoin-master/obj/Debug/netcoreapp2.1/kryptocoin-master.pdb
