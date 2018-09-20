@@ -1,2 +1,0 @@
-# kryptocoin
-KryptoCoinBot C#

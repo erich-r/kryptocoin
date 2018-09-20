@@ -92,5 +92,6 @@ namespace kryptocoin_master
             Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
 
         }
+
     }
 }
