@@ -10,7 +10,8 @@ namespace kryptocoin_master.Classi.Comandi{
         public abstract void eseguiComando(Message messaggio, TelegramBotClient clientBot);
         public bool verificaComando(string comandoDaControllare)
         {
-            return comandoDaControllare.Contains(this.nomeComando) && comandoDaControllare.Contains(ImpostazioniBot.nome);
+            string[] parole = comandoDaControllare.Split(' ');
+            return parole.Length == 1 && comandoDaControllare.Contains(this.nomeComando);
         }
     }
 

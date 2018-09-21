@@ -11,8 +11,13 @@ namespace kryptocoin_master
 {
     class Program
     {
+
+        private static DateTime startTime;
+
         public static void Main(string[] args)
         {
+            startTime = DateTime.Now;
+
             BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
             BotClient.setCommands();
             User me = BotClient.getClient().GetMeAsync().Result;
@@ -29,8 +34,12 @@ namespace kryptocoin_master
             BotClient.getClient().StartReceiving(Array.Empty<UpdateType>());
             Console.WriteLine($"Start listening for @{me.Username}");
 
-           
+            
             Console.ReadLine();
+            int secondi = 0;
+            DateTime fineProgramma = DateTime.Now;
+            secondi = fineProgramma.Subtract(startTime).Seconds;
+            Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
             BotClient.getClient().StopReceiving();
         }
 
@@ -45,6 +54,8 @@ namespace kryptocoin_master
             long id = e.Message.Chat.Id;
             string messagge = e.Message.Text;
 
+            //debug
+
             Console.Write("{0} ({1}) ha scritto {2}", username, id, messagge);
 
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message);
@@ -54,8 +65,9 @@ namespace kryptocoin_master
                 Console.WriteLine(" - Eseguo il comando {0}", comandoDaEseguire.nomeComando);
                 comandoDaEseguire.eseguiComando(e.Message, BotClient.getClient());
             }
-
-            Console.WriteLine("");
+            else
+                Console.WriteLine("");
+            
 
         }
 
@@ -89,8 +101,7 @@ namespace kryptocoin_master
         private static async void inviaMessaggio(TelegramBotClient client,string testoMessaggio, long chatIdDestinatario, int messageId = 0)
         {
 
-            Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
-
+            await Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
         }
 
     }
