@@ -55,6 +55,7 @@ namespace kryptocoin_master.Classi{
         public static void setCommands()
         {
             listaComandi.Add(new ComandoHelloWorld());
+            listaComandi.Add(new ComandoStart());
         }
         
     }
