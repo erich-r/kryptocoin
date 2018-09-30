@@ -80,6 +80,7 @@ namespace kryptocoin_master
         private static void e_InlineResult(object sender, ChosenInlineResultEventArgs e)
         {
             throw new NotImplementedException();
+
         }
 
         private static void e_InlineQuery(object sender, InlineQueryEventArgs e)
@@ -89,7 +90,7 @@ namespace kryptocoin_master
 
         private static void e_CallbackQuery(object sender, CallbackQueryEventArgs e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(e.CallbackQuery.Data);
         }
 
         private static void e_MessageEdited(object sender, MessageEventArgs e)
