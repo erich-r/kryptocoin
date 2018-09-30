@@ -12,11 +12,11 @@ namespace kryptocoin_master
     class Program
     {
 
-        private static DateTime startTime;
+        //private static DateTime startTime;
 
         public static void Main(string[] args)
         {
-            //startTime = DateTime.Now;
+            DateTime startTime = DateTime.Now;
 
             BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
             BotClient.setCommands();
@@ -36,10 +36,11 @@ namespace kryptocoin_master
 
             
             Console.ReadLine();
-            int secondi = 0;
-            DateTime fineProgramma = DateTime.Now;
+            //int secondi = 0;
+            DateTime endTime = DateTime.Now;
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
+            Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
             BotClient.getClient().StopReceiving();
         }
 
