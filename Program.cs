@@ -17,7 +17,7 @@ namespace kryptocoin_master
         public static void Main(string[] args)
         {
             DateTime startTime = DateTime.Now;
-
+            LanguageManager lm = new LanguageManager();
             BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
             BotClient.setCommands();
             User me = BotClient.getClient().GetMeAsync().Result;

@@ -11,7 +11,7 @@ namespace kryptocoin_master.Classi.Comandi{
         {
             long chatID = messaggio.Chat.Id;
             int idMessaggio = messaggio.MessageId;
-            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, "HelloWorld Funzionante!", replyToMessageId: idMessaggio));
+            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Italiano","Saluto"), replyToMessageId: idMessaggio));
         }
 
     }
