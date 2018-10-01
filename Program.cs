@@ -97,7 +97,7 @@ namespace kryptocoin_master
         {
             int messageID = e.Message.MessageId;
             long chatId = e.Message.Chat.Id;
-            inviaMessaggio(BotClient.getClient(), "Prova con reply", chatId,messageID);
+            inviaMessaggio(BotClient.getClient(), LanguageManager.getFrase("Italiano","Editato"), chatId,messageID);
         }
 
         private static async void inviaMessaggio(TelegramBotClient client,string testoMessaggio, long chatIdDestinatario, int messageId = 0)
