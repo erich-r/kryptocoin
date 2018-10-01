@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
-
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 public class LanguageManager{
 
     private static Dictionary<string,Dictionary<string,string>> lingue;
@@ -21,7 +21,7 @@ public class LanguageManager{
         string folderPath = "Languages/";
         DirectoryInfo d = new DirectoryInfo(folderPath);
 
-        foreach (var file in d.GetFiles("*.xml"))
+        foreach (var file in d.GetFiles("*.json"))
         {
             Console.WriteLine(file.Name);
             string dictKey = file.Name.Split('.')[0];
@@ -34,11 +34,9 @@ public class LanguageManager{
     private Dictionary<string,string> deserializzaLingua(string folderPath,string lingua){
         string fileToDeserialize = string.Concat(folderPath,lingua);
         Console.WriteLine("File : {0}",fileToDeserialize);
-
-        XmlSerializer deserializer = new XmlSerializer(typeof(Frase[]), new XmlRootAttribute() { ElementName = "frasi" });
-        Stream stream = File.Open(fileToDeserialize,FileMode.Open);
-        return ((Frase[])deserializer.Deserialize(stream)).ToDictionary(frase => frase.contesto, frase => frase.valore);
-
+        string json;
+        json = File.ReadAllText(fileToDeserialize);
+        return JsonConvert.DeserializeObject<Dictionary<string,string>>(json);
     }
 
     public static Dictionary<string,Dictionary<string,string>> getLingue(){
