@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 public class LanguageManager{
 
@@ -47,8 +46,6 @@ public class LanguageManager{
 
     public static string getFrase(string lingua,string contesto){
 
-        var qry = from outer in lingue from inner in outer.Value select inner.Value;
-        Console.WriteLine(qry.Count() + "Prova");
         return lingue[lingua][contesto];
 
     }
