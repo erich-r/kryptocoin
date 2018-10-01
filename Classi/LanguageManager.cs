@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 public class LanguageManager{
 
@@ -20,7 +19,7 @@ public class LanguageManager{
         string folderPath = "Languages/";
         DirectoryInfo d = new DirectoryInfo(folderPath);
 
-        foreach (var file in d.GetFiles("*.json"))
+        foreach (FileInfo file in d.GetFiles("*.json"))
         {
             Console.WriteLine(file.Name);
             string dictKey = file.Name.Split('.')[0];

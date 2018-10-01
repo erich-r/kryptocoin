@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-namespace kryptocoin_master.Classi.Comandi{
-    
+namespace kryptocoin_master.Classi.Comandi
+{
+
     class ComandoStart : ComandoBase
     {
         public override string nomeComando => "/start";
