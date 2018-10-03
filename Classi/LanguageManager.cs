@@ -21,7 +21,7 @@ public class LanguageManager{
 
         foreach (FileInfo file in d.GetFiles("*.json"))
         {
-            Console.WriteLine(file.Name);
+            //Console.WriteLine("Mi preparo a deserializzare il file {0}",file.Name);
             string dictKey = file.Name.Split('.')[0];
             lingue.Add(dictKey,new Dictionary<string, string>());
             lingue[dictKey] = deserializzaLingua(folderPath,file.Name);
@@ -31,9 +31,17 @@ public class LanguageManager{
 
     private Dictionary<string,string> deserializzaLingua(string folderPath,string lingua){
         string fileToDeserialize = string.Concat(folderPath,lingua);
-        Console.WriteLine("File : {0}",fileToDeserialize);
-        string json;
-        json = File.ReadAllText(fileToDeserialize);
+        Console.WriteLine("Mi preparo a deserializzare il file {0}",fileToDeserialize);
+        string json = "";
+
+        try{
+            json = File.ReadAllText(fileToDeserialize);
+        }
+        catch(Exception e){
+            Console.WriteLine("Non sono riuscito a deserializzare il file {0}.\nDettagli errore:{1}",fileToDeserialize,e.Message);
+            Environment.Exit(1);
+        }
+
         return JsonConvert.DeserializeObject<Dictionary<string,string>>(json);
     }
 

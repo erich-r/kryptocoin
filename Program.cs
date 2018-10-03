@@ -7,6 +7,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
+
 namespace kryptocoin_master
 {
     class Program
@@ -18,25 +19,53 @@ namespace kryptocoin_master
         {
             DateTime startTime = DateTime.Now;
 
-            LanguageManager lm = new LanguageManager();
-
-            BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
-            BotClient.setCommands();
-
-            User me = BotClient.getClient().GetMeAsync().Result;
-
             //db
+            Console.WriteLine("Connessione al DB");
             DBConnection dBConnection = DBConnection.Instance();
             dBConnection.DatabaseName = "information_schema";
-            if(dBConnection.IsConnect()){
 
-                Console.WriteLine("Sono riuscito a connettermi");
+            //try{
+            //    if(dBConnection.IsConnect()){
+            //        Console.WriteLine("Connessione riuscita!");
+            //    }
+            //}
+            //catch(MySql.Data.MySqlClient.MySqlException e){
+            //    Console.WriteLine("Non sono riuscito a connettermi al database, termino il programma.. \nInformazioni errore: {0}",e.Message);
+            //    abort = true;
+            //}
+            
 
+            
+
+            User me = null;
+                
+            try{
+                BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
+                BotClient.setCommands();
+               me = BotClient.getClient().GetMeAsync().Result;
+            }                
+            catch(AggregateException e){
+                Console.WriteLine("Errore nel reperire le informazioni del bot, termino il programma.\nInformazioni errore: {0}",e.Message);
+                chiudiProgramma(startTime);
             }
-            else{
-                Console.WriteLine("Non sono riuscito a connettermi");
-                throw new Exception();
+            
+
+            
+            try{
+                BotClient.getClient().StartReceiving(Array.Empty<UpdateType>());
+                Console.WriteLine($"Start listening for @{me.Username}");
             }
+            catch(Exception e){
+                Console.WriteLine("Errore: {0}",e.Message);
+                chiudiProgramma(startTime);
+            }
+            
+            if(BotClient.getClient() == null){
+                chiudiProgramma(startTime);
+            }
+            
+                
+            LanguageManager lm = new LanguageManager();
 
             Console.Title = me.Username;
             
@@ -46,19 +75,13 @@ namespace kryptocoin_master
             BotClient.getClient().OnInlineQuery += e_InlineQuery;
             BotClient.getClient().OnInlineResultChosen += e_InlineResult;
             BotClient.getClient().OnReceiveError += e_Error;
-            //BotClient.getClient().OnUpdate += e_Update;
+                //BotClient.getClient().OnUpdate += e_Update;
             ImpostazioniBot.nome = me.Username;
-            BotClient.getClient().StartReceiving(Array.Empty<UpdateType>());
-            Console.WriteLine($"Start listening for @{me.Username}");
-
-            
             Console.ReadLine();
-            //int secondi = 0;
-            DateTime endTime = DateTime.Now;
-            //secondi = fineProgramma.Subtract(startTime).Seconds;
-            //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
-            Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
             BotClient.getClient().StopReceiving();
+            
+            chiudiProgramma(startTime);
+            
         }
 
         //private static void e_Update(object sender, UpdateEventArgs e)
@@ -121,6 +144,18 @@ namespace kryptocoin_master
         {
 
             await Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
+        }
+
+        private static void chiudiProgramma(DateTime startTime){
+
+            //int secondi = 0;
+            
+            DateTime endTime = DateTime.Now;
+            //secondi = fineProgramma.Subtract(startTime).Seconds;
+            //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
+            Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
+            Environment.Exit(1);
+
         }
 
     }
