@@ -17,10 +17,27 @@ namespace kryptocoin_master
         public static void Main(string[] args)
         {
             DateTime startTime = DateTime.Now;
+
             LanguageManager lm = new LanguageManager();
+
             BotClient.setClient(new TelegramBotClient(ImpostazioniBot.chiaveAPI));
             BotClient.setCommands();
+
             User me = BotClient.getClient().GetMeAsync().Result;
+
+            //db
+            DBConnection dBConnection = DBConnection.Instance();
+            dBConnection.DatabaseName = "information_schema";
+            if(dBConnection.IsConnect()){
+
+                Console.WriteLine("Sono riuscito a connettermi");
+
+            }
+            else{
+                Console.WriteLine("Non sono riuscito a connettermi");
+                throw new Exception();
+            }
+
             Console.Title = me.Username;
             
             BotClient.getClient().OnMessage += e_MessageReceived;
