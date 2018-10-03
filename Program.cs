@@ -14,13 +14,14 @@ namespace kryptocoin_master
     {
 
         //private static DateTime startTime;
-
+        private static Logger logger;
         public static void Main(string[] args)
         {
             DateTime startTime = DateTime.Now;
-
+            logger = new Logger("logs/prova.txt");
+            logger.startLogging();
             //db
-            Console.WriteLine("Connessione al DB");
+            Logger.Write(LogType.Info,"Connessione al DB");
             DBConnection dBConnection = DBConnection.Instance();
             dBConnection.DatabaseName = "information_schema";
 
@@ -154,6 +155,7 @@ namespace kryptocoin_master
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
             Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
+            logger.stopLogging();
             Environment.Exit(1);
 
         }

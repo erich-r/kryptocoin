@@ -1,0 +1,5 @@
+03/10/18 23:16:12 | [Info] - Connessione al DB
+Start listening for @DevTestRobBot
+Mi preparo a deserializzare il file Languages/Italiano.json
+
+Programma iniziato il 03/10/18 23:16:12 e terminato il 03/10/18 23:16:16
