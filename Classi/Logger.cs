@@ -3,31 +3,36 @@ using System.IO;
 
 namespace kryptocoin_master.Classi{
 
-    public class Logger{
+    public static class Logger{
 
-        private FileStream ostrm;
-        private StreamWriter writer;
+        private static string pathToLog;
 
-        TextWriter oldOut;
+        private static FileStream ostrm;
+        private static TextWriter writer;
+        private static TextWriter oldOut;
 
-        private bool isLogging;
+        private static int fileCount;
+        private static DateTime dateOfStopLoggin;
 
-        private string pathToLog;
+        private const int FILEMAXROWS = 10;
+        private static int fileCurrentrows;
 
-        public Logger(string pathToLog){
+        public static void startLogging(){
 
-            isLogging = false;
-            this.pathToLog = pathToLog;
-
-        }
-
-        public void startLogging(){
-
-            if(isLogging)
-                return;
+            if(!dateOfStopLoggin.Date.Equals(DateTime.Now.Date) || dateOfStopLoggin == null)
+                fileCount = 0;
+            else{
+                //dateOfStopLoggin = DateTime.Now;
+                fileCount++;
+            }
             
-            isLogging = true;
-            this.oldOut = Console.Out;
+            fileCurrentrows = 0;
+
+            pathToLog = "logs/";
+            Console.Write(fileCount);
+            pathToLog = pathToLog + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + fileCount +".txt";
+
+            oldOut = Console.Out;
             try
             {
                 ostrm = new FileStream (pathToLog, FileMode.OpenOrCreate, FileAccess.Write);
@@ -42,19 +47,29 @@ namespace kryptocoin_master.Classi{
 
         }
 
-        public void stopLogging(){
-            if(!isLogging)
-                return;
-            isLogging = false;
+        public static void stopLogging(){
+            dateOfStopLoggin = DateTime.Now;
             Console.SetOut(oldOut);
             writer.Close();
+            
             ostrm.Close();
 
         }
+        public static void WriteLine(LogType logtype,string data){
 
-        public static void Write(LogType logtype,string data){
+            Console.WriteLine("{0} | {1} | {2}",DateTime.Now,logtype.Value,data);
+            fileCurrentrows++;
+            checkFileSize();
 
-            Console.WriteLine("{0} | {1} - {2}",DateTime.Now,logtype.Value,data);
+        }
+        private static void checkFileSize(){
+            //Logger.Write(LogType.Debug,fileInfo.Length.ToString());
+            if(fileCurrentrows >= FILEMAXROWS){
+                
+                stopLogging();
+                startLogging();
+
+            }
 
         }
     }

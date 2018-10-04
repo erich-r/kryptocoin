@@ -14,14 +14,12 @@ namespace kryptocoin_master
     {
 
         //private static DateTime startTime;
-        private static Logger logger;
         public static void Main(string[] args)
         {
             DateTime startTime = DateTime.Now;
-            logger = new Logger("logs/prova.txt");
-            logger.startLogging();
+            Logger.startLogging();
             //db
-            Logger.Write(LogType.Info,"Connessione al DB");
+            Logger.WriteLine(LogType.Info,"Connessione al DB");
             DBConnection dBConnection = DBConnection.Instance();
             dBConnection.DatabaseName = "information_schema";
 
@@ -97,19 +95,18 @@ namespace kryptocoin_master
             string messagge = e.Message.Text;
 
             //debug
-
-            Console.Write("{0} ({1}) ha scritto {2}", username, id, messagge);
+            string toWrite = $"{username} ({id}) ha scritto {messagge}";
 
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message);
 
             if (comandoDaEseguire != null)
             {
-                Console.WriteLine(" - Eseguo il comando {0}", comandoDaEseguire.nomeComando);
+                toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
+                //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
                 comandoDaEseguire.eseguiComando(e.Message, BotClient.getClient());
             }
-            else
-                Console.WriteLine("");
-            
+
+            Logger.WriteLine(LogType.Info,toWrite);
 
         }
 
@@ -155,7 +152,7 @@ namespace kryptocoin_master
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
             Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
-            logger.stopLogging();
+            Logger.stopLogging();
             Environment.Exit(1);
 
         }
