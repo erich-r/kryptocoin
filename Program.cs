@@ -19,9 +19,9 @@ namespace kryptocoin_master
             DateTime startTime = DateTime.Now;
             Logger.startLogging();
             //db
-            Logger.WriteLine(LogType.Info,"Connessione al DB");
-            DBConnection dBConnection = DBConnection.Instance();
-            dBConnection.DatabaseName = "information_schema";
+            //Logger.WriteLine(LogType.Info,"Connessione al DB");
+            //DBConnection dBConnection = DBConnection.Instance();
+            //dBConnection.DatabaseName = "information_schema";
 
             //try{
             //    if(dBConnection.IsConnect()){
@@ -106,7 +106,7 @@ namespace kryptocoin_master
                 comandoDaEseguire.eseguiComando(e.Message, BotClient.getClient());
             }
 
-            Logger.WriteLine(LogType.Info,toWrite);
+            Logger.WriteLine(LogType.Update,toWrite);
 
         }
 

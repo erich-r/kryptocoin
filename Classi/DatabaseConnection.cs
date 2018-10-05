@@ -38,6 +38,7 @@ namespace kryptocoin_master.Classi{
                     return false;
                 string connstring = string.Format("Server=localhost; database={0}; UID=root; password=; SSLMode=none", databaseName);
                 connection = new MySqlConnection(connstring);
+                Logger.WriteLine(LogType.Info,"Mi sto connettendo al Database...");
                 connection.Open();
             }
 
@@ -46,6 +47,7 @@ namespace kryptocoin_master.Classi{
 
         public void Close()
         {
+            Logger.WriteLine(LogType.Info,"Chiudo la connessione al Database...");
             connection.Close();
         }        
     }

@@ -28,6 +28,8 @@ public class LanguageManager{
             lingue[dictKey] = deserializzaLingua(folderPath,file.Name);
         }
 
+        Logger.WriteLine(LogType.Info,"Ho finito di deserializzare i .json delle lingue");
+
     }
 
     private Dictionary<string,string> deserializzaLingua(string folderPath,string lingua){
