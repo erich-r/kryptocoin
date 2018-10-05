@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using kryptocoin_master.Classi;
 using Newtonsoft.Json;
 public class LanguageManager{
 
@@ -31,18 +32,20 @@ public class LanguageManager{
 
     private Dictionary<string,string> deserializzaLingua(string folderPath,string lingua){
         string fileToDeserialize = string.Concat(folderPath,lingua);
-        Console.WriteLine("Mi preparo a deserializzare il file {0}",fileToDeserialize);
+        Logger.WriteLine(LogType.Info,$"Mi preparo a deserializzare il file {fileToDeserialize}");
         string json = "";
 
         try{
             json = File.ReadAllText(fileToDeserialize);
         }
         catch(Exception e){
-            Console.WriteLine("Non sono riuscito a deserializzare il file {0}.\nDettagli errore:{1}",fileToDeserialize,e.Message);
+            Logger.WriteLine(LogType.Error,$"Non sono riuscito a deserializzare il file {fileToDeserialize}.\nDettagli errore:{e.Message}");
             Environment.Exit(1);
         }
 
-        return JsonConvert.DeserializeObject<Dictionary<string,string>>(json);
+        Dictionary<string,string> toRtn = JsonConvert.DeserializeObject<Dictionary<string,string>>(json);
+        Logger.WriteLine(LogType.Info,$"Sono riuscito a deserializzare il file {fileToDeserialize}");
+        return toRtn;
     }
 
     public static Dictionary<string,Dictionary<string,string>> getLingue(){
