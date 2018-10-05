@@ -11,7 +11,7 @@ namespace kryptocoin_master.Classi.Comandi
         public override string nomeComando => "/start";
         public override bool richiedeParametri => false;
 
-        public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot)
+        public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot,params string[]parametri)
         {
 
             InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]

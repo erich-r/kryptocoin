@@ -8,7 +8,7 @@ namespace kryptocoin_master.Classi.Comandi{
 
         public abstract string nomeComando { get; }
         public abstract bool richiedeParametri { get; }
-        public abstract void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot);
+        public abstract void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot,params string[]parametri);
         public bool verificaComando(string comandoDaControllare)
         {
             bool toRtn = false;
