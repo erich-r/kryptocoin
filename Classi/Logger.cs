@@ -14,7 +14,8 @@ namespace kryptocoin_master.Classi{
         private static int fileCount;
         private static DateTime dateOfStopLoggin;
 
-        private const int FILEMAXROWS = 10;
+        private const int FILE_MAX_ROWS = 5000;
+        private const string FILE_EXTENSION = ".log";
         private static int fileCurrentrows;
 
         public static void startLogging(){
@@ -28,14 +29,19 @@ namespace kryptocoin_master.Classi{
             
             fileCurrentrows = 0;
 
-            pathToLog = "logs/";
-            Console.Write(fileCount);
-            pathToLog = pathToLog + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + fileCount +".txt";
+            string directory = "logs/";
+            string todayString = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString();
+
+            fileCount = getFileNameIndex(directory+todayString+"-",0);
+            //Console.Write(fileCount);
+            pathToLog = directory + todayString + "-" + fileCount + FILE_EXTENSION;
+            
+            
 
             oldOut = Console.Out;
             try
             {
-                ostrm = new FileStream (pathToLog, FileMode.OpenOrCreate, FileAccess.Write);
+                ostrm = new FileStream (pathToLog, FileMode.Create, FileAccess.Write);
                 writer = new StreamWriter (ostrm);
             }
             catch (Exception e)
@@ -64,12 +70,31 @@ namespace kryptocoin_master.Classi{
         }
         private static void checkFileSize(){
             //Logger.Write(LogType.Debug,fileInfo.Length.ToString());
-            if(fileCurrentrows >= FILEMAXROWS){
+            if(fileCurrentrows >= FILE_MAX_ROWS){
                 
                 stopLogging();
                 startLogging();
 
             }
+
+        }
+
+        private static int getFileNameIndex(string pathFile,int indexFile){
+            
+            int toRtn = indexFile;
+            
+            FileInfo fi = new FileInfo(pathFile+indexFile+FILE_EXTENSION);
+            if(fi.Exists){
+                
+                //Console.WriteLine(indexFile+1);
+                toRtn = getFileNameIndex(pathFile,indexFile+1);
+            }
+            else
+                return toRtn;
+
+            //Console.WriteLine(toRtn);
+
+            return toRtn;
 
         }
     }
