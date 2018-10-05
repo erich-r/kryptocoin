@@ -28,19 +28,19 @@ namespace kryptocoin_master.Classi{
             client = newClient;
         }
 
-        public static ComandoBase comandoDigitato(Message messaggio)
+        public static ComandoBase comandoDigitato(string input)
         {
             bool trovato = false;
             int i = 0;
 
             ComandoBase cmdToRtn = null;
 
-            if (messaggio.Type != Telegram.Bot.Types.Enums.MessageType.Text) return cmdToRtn;
+            //if (messaggio.Type != Telegram.Bot.Types.Enums.MessageType.Text) return cmdToRtn;
 
             while (!trovato && i < comandi.Count)
             {
                 ComandoBase comando = comandi.ElementAt(i);
-                if (comando.verificaComando(messaggio.Text))
+                if (comando.verificaComando(input))
                 {
                     cmdToRtn = comando;
                     trovato = true;
@@ -56,6 +56,7 @@ namespace kryptocoin_master.Classi{
         {
             listaComandi.Add(new ComandoHelloWorld());
             listaComandi.Add(new ComandoStart());
+            listaComandi.Add(new ComandoLanguage());
             Logger.WriteLine(LogType.Info,"Ho fornito i comandi da eseguire al BOT");
         }
         

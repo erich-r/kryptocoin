@@ -97,16 +97,10 @@ namespace kryptocoin_master
             //debug
             string toWrite = $"{username} ({id}) ha scritto {messagge}";
 
-            ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message);
+            ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message.Text);
 
-            if (comandoDaEseguire != null)
-            {
-                toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
-                //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
-                comandoDaEseguire.eseguiComando(e.Message, BotClient.getClient());
-            }
-
-            Logger.WriteLine(LogType.Update,toWrite);
+            eseguiComando(comandoDaEseguire,e.Message,toWrite);
+            
 
         }
 
@@ -128,7 +122,19 @@ namespace kryptocoin_master
 
         private static void e_CallbackQuery(object sender, CallbackQueryEventArgs e)
         {
-            Logger.WriteLine(LogType.Debug,e.CallbackQuery.Data);
+            //qui vengono le risposte alle tastiere
+            //Logger.WriteLine(LogType.Debug,e.CallbackQuery.Data);
+            string tastieraInlineID = e.CallbackQuery.InlineMessageId;
+            string nomeTastoPremuto = e.CallbackQuery.ChatInstance;
+            string nome = e.CallbackQuery.Message.Chat.FirstName;
+            long chatID = e.CallbackQuery.Message.Chat.Id;
+
+            string toWrite = $"{nome} ({chatID}) ha premuto il tasto {nomeTastoPremuto} della tastiera ({tastieraInlineID})";
+            
+            ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.CallbackQuery.Data);
+            Logger.WriteLine(LogType.Debug,e.CallbackQuery.Message.Text);
+            eseguiComando(comandoDaEseguire,e.CallbackQuery.Message,toWrite);
+
         }
 
         private static void e_MessageEdited(object sender, MessageEventArgs e)
@@ -154,6 +160,19 @@ namespace kryptocoin_master
             Logger.WriteLine(LogType.Info,$"Programma iniziato il {startTime} e terminato il {endTime}");
             Logger.stopLogging();
             Environment.Exit(1);
+
+        }
+
+        private static void eseguiComando(ComandoBase comandoDaEseguire,Message m,string toWrite){
+
+            if (comandoDaEseguire != null)
+            {
+                toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
+                //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
+                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient());
+            }
+
+            Logger.WriteLine(LogType.Update,toWrite);
 
         }
 

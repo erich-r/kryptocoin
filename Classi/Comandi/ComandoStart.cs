@@ -7,27 +7,26 @@ namespace kryptocoin_master.Classi.Comandi
     class ComandoStart : ComandoBase
     {
         public override string nomeComando => "/start";
+        public override bool richiedeParametri => false;
 
-        public override async void eseguiComando(Telegram.Bot.Types.Message messaggio, TelegramBotClient clientBot)
+        public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot)
         {
-            long chatID = messaggio.Chat.Id;
-            int idMessaggio = messaggio.MessageId;
 
             InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
                     {
                         new [] // prima riga
                         {
-                            InlineKeyboardButton.WithCallbackData("Italiano"),
-                            InlineKeyboardButton.WithCallbackData("English")
+                            InlineKeyboardButton.WithCallbackData(" Italiano","/lan italian"),
+                            InlineKeyboardButton.WithCallbackData("English","/lan english")
                         },
                         new [] // seconda riga
                         {
-                            InlineKeyboardButton.WithCallbackData("Español"),
-                            InlineKeyboardButton.WithCallbackData("Pусский")
+                            InlineKeyboardButton.WithCallbackData("Español","/lan spanish"),
+                            InlineKeyboardButton.WithCallbackData("Pусский","/lan russian")
                         },
                         new []
                         {
-                            InlineKeyboardButton.WithCallbackData("汉语")
+                            InlineKeyboardButton.WithCallbackData("汉语","/lan chinese")
                         }
                     });
             await Task.Run(() => clientBot.SendTextMessageAsync(chatID, "Welcome!",replyMarkup:inlineKeyboard));

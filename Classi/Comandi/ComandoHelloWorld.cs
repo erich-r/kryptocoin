@@ -6,11 +6,10 @@ namespace kryptocoin_master.Classi.Comandi{
     class ComandoHelloWorld : ComandoBase
     {
         public override string nomeComando => "/ciao";
+        public override bool richiedeParametri => false;
 
-        public override async void eseguiComando(Telegram.Bot.Types.Message messaggio, TelegramBotClient clientBot)
+        public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot)
         {
-            long chatID = messaggio.Chat.Id;
-            int idMessaggio = messaggio.MessageId;
             await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Italiano","Saluto"), replyToMessageId: idMessaggio));
         }
 

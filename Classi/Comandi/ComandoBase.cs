@@ -7,11 +7,19 @@ namespace kryptocoin_master.Classi.Comandi{
     {
 
         public abstract string nomeComando { get; }
-        public abstract void eseguiComando(Message messaggio, TelegramBotClient clientBot);
+        public abstract bool richiedeParametri { get; }
+        public abstract void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot);
         public bool verificaComando(string comandoDaControllare)
         {
+            bool toRtn = false;
             string[] parole = comandoDaControllare.Split(' ');
-            return parole.Length == 1 && comandoDaControllare.Contains(this.nomeComando);
+
+            if(!richiedeParametri && parole.Length == 1 && comandoDaControllare.Contains(this.nomeComando))
+                toRtn = true;
+            else if(richiedeParametri && parole.Length > 1 && comandoDaControllare.Contains(this.nomeComando))
+                toRtn = true;
+
+            return toRtn;
         }
     }
 
