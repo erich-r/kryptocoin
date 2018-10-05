@@ -1,4 +1,6 @@
 {
-    "Saluto":"Io Ti Saluto!!!",
-    "Editato":"Hai Editato"
+
+    "avvioBot":"Ciao! Io sono KryptoCoinBot e il mio compito è notificarti del cambio di valore delle criptomonete che ti interessano! Per prima cosa, scegli la lingua che preferisci premendo sulla tastiera! (puoi successivamente cambiarla tramite il comando /lan {lingua})\nAttualmente le uniche lingue supportate sono: **Italiano**,**Inglese**."
+
+
 }

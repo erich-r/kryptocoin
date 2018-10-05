@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.Enums;
+
 namespace kryptocoin_master.Classi.Comandi
 {
 
@@ -29,7 +31,7 @@ namespace kryptocoin_master.Classi.Comandi
                             InlineKeyboardButton.WithCallbackData("汉语","/lan chinese")
                         }
                     });
-            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, "Welcome!",replyMarkup:inlineKeyboard));
+            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Inglese","avvioBot"),replyMarkup:inlineKeyboard,parseMode:ParseMode.Html));
         }
 
     }
