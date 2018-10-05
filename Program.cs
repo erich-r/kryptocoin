@@ -44,7 +44,7 @@ namespace kryptocoin_master
                me = BotClient.getClient().GetMeAsync().Result;
             }                
             catch(AggregateException e){
-                Console.WriteLine("Errore nel reperire le informazioni del bot, termino il programma.\nInformazioni errore: {0}",e.Message);
+                Logger.WriteLine(LogType.Error,$"Errore nel reperire le informazioni del bot, termino il programma.\nInformazioni errore: {e.Message}");
                 chiudiProgramma(startTime);
             }
             
@@ -52,10 +52,10 @@ namespace kryptocoin_master
             
             try{
                 BotClient.getClient().StartReceiving(Array.Empty<UpdateType>());
-                Console.WriteLine($"Start listening for @{me.Username}");
+                Logger.WriteLine(LogType.Info,$"Start listening for @{me.Username}");
             }
             catch(Exception e){
-                Console.WriteLine("Errore: {0}",e.Message);
+                Logger.WriteLine(LogType.Error,$"Errore: {e.Message}");
                 chiudiProgramma(startTime);
             }
             
@@ -128,7 +128,7 @@ namespace kryptocoin_master
 
         private static void e_CallbackQuery(object sender, CallbackQueryEventArgs e)
         {
-            Console.WriteLine(e.CallbackQuery.Data);
+            Logger.WriteLine(LogType.Debug,e.CallbackQuery.Data);
         }
 
         private static void e_MessageEdited(object sender, MessageEventArgs e)
@@ -151,7 +151,7 @@ namespace kryptocoin_master
             DateTime endTime = DateTime.Now;
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
-            Console.WriteLine("Programma iniziato il {0} e terminato il {1}",startTime,endTime);
+            Logger.WriteLine(LogType.Info,$"Programma iniziato il {startTime} e terminato il {endTime}");
             Logger.stopLogging();
             Environment.Exit(1);
 
