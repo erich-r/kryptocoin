@@ -18,17 +18,17 @@ namespace kryptocoin_master.Classi.Comandi
                     {
                         new [] // prima riga
                         {
-                            InlineKeyboardButton.WithCallbackData(" Italiano","/lan italian"),
-                            InlineKeyboardButton.WithCallbackData("English","/lan english")
+                            InlineKeyboardButton.WithCallbackData("🇮🇹 Italiano","/lan italian"),
+                            InlineKeyboardButton.WithCallbackData("🇬🇧 English","/lan english")
                         },
                         new [] // seconda riga
                         {
-                            InlineKeyboardButton.WithCallbackData("Español","/lan spanish"),
-                            InlineKeyboardButton.WithCallbackData("Pусский","/lan russian")
+                            InlineKeyboardButton.WithCallbackData("🇪🇸 Español","/lan spanish"),
+                            InlineKeyboardButton.WithCallbackData("🇷🇺 Pусский","/lan russian")
                         },
                         new []
                         {
-                            InlineKeyboardButton.WithCallbackData("汉语","/lan chinese")
+                            InlineKeyboardButton.WithCallbackData("🇨🇳 汉语","/lan chinese")
                         }
                     });
             await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Inglese","avvioBot"),replyMarkup:inlineKeyboard,parseMode:ParseMode.Html));

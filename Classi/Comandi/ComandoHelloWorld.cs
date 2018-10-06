@@ -10,7 +10,7 @@ namespace kryptocoin_master.Classi.Comandi{
 
         public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot,params string[]parametri)
         {
-            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Italiano","Saluto"), replyToMessageId: idMessaggio,parseMode:ParseMode.Html));
+            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Italiano","avvisoWIP"), replyToMessageId: idMessaggio,parseMode:ParseMode.Html));
         }
 
     }
