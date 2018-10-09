@@ -17,8 +17,17 @@ namespace kryptocoin_master
         //private static DateTime startTime;
         public static void Main(string[] args)
         {
+            
             DateTime startTime = DateTime.Now;
             Logger.startLogging();
+            if(args.Length == 2)
+                setImpostazioniBot(args[0],args[1]);
+            else if(args.Length == 1 && args[0] == "debug")
+                setImpostazioniBot("DevTestRobBot","660737287:AAGLHqy1pxH8gRGAG17zpKF50CdcZj-9-M4");
+            else{
+                Logger.WriteLine(LogType.Error,"Errore! Ho bisogno del nome del bot e della sua chiave API, esegui dotnet run {nomeBot} {chiave}");
+                chiudiProgramma(startTime);
+            }
             TimeSpan intervallo = new TimeSpan(0,0,1);
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
@@ -101,7 +110,6 @@ namespace kryptocoin_master
 
             //debug
             string toWrite = $"{username} ({id}) ha scritto {messagge}";
-
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message.Text);
 
             eseguiComando(comandoDaEseguire,e.Message,toWrite);
@@ -155,12 +163,13 @@ namespace kryptocoin_master
             await Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
         }
 
-        private static void chiudiProgramma(DateTime startTime,CancellationTokenSource source){
+        private static void chiudiProgramma(DateTime startTime,CancellationTokenSource source = null){
 
             //int secondi = 0;
             
             DateTime endTime = DateTime.Now;
-            source.Cancel();
+            if(source != null)
+                source.Cancel();
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
             Logger.WriteLine(LogType.Info,$"Programma iniziato il {startTime} e terminato il {endTime}");
@@ -183,14 +192,20 @@ namespace kryptocoin_master
         }
 
         private static async Task esecuzioneAsincronaIntervalliRegolari(TimeSpan intervallo,CancellationToken token){
-
             while(true){
 
-                Logger.WriteLineAsync(LogType.Debug,"Prova a intervalli regolari asincroni");
+                Logger.WriteLineAsync(LogType.Debug,$"Prova a intervalli regolari asincroni");
                 await Task.Delay(intervallo); 
                 if(token.IsCancellationRequested)
                     break;
             }
+        }
+
+        private static void setImpostazioniBot(string nome,string chiaveAPI){
+
+            ImpostazioniBot.setAttributi(nome,chiaveAPI);
+            Logger.WriteLine(LogType.Info,$"Ho settato il nome e la chiave API ({chiaveAPI}) del bot @{nome}");
+
         }
 
 

@@ -7,7 +7,14 @@ namespace kryptocoin_master.Classi{
         //nome del bot (dopo la @)
         public static string nome { get; set; } 
         //la chiave necessaria per usufruire delle api di telegram
-        public static string chiaveAPI { get; set; } = "660737287:AAGLHqy1pxH8gRGAG17zpKF50CdcZj-9-M4";
+        public static string chiaveAPI { get; set; } 
+
+        public static void setAttributi(string nomeBot,string chiaveAPIBot){
+
+            nome = nomeBot;
+            chiaveAPI = chiaveAPIBot;
+
+        }
     }
 
 }
