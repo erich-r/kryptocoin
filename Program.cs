@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using kryptocoin_master.Classi;
 using kryptocoin_master.Classi.Comandi;
@@ -18,6 +19,10 @@ namespace kryptocoin_master
         {
             DateTime startTime = DateTime.Now;
             Logger.startLogging();
+            TimeSpan intervallo = new TimeSpan(0,0,1);
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            esecuzioneAsincronaIntervalliRegolari(intervallo,token);
             //db
             //Logger.WriteLine(LogType.Info,"Connessione al DB");
             //DBConnection dBConnection = DBConnection.Instance();
@@ -45,7 +50,7 @@ namespace kryptocoin_master
             }                
             catch(AggregateException e){
                 Logger.WriteLine(LogType.Error,$"Errore nel reperire le informazioni del bot, termino il programma.\nInformazioni errore: {e.Message}");
-                chiudiProgramma(startTime);
+                chiudiProgramma(startTime,source);
             }
             
 
@@ -56,11 +61,11 @@ namespace kryptocoin_master
             }
             catch(Exception e){
                 Logger.WriteLine(LogType.Error,$"Errore: {e.Message}");
-                chiudiProgramma(startTime);
+                chiudiProgramma(startTime,source);
             }
             
             if(BotClient.getClient() == null){
-                chiudiProgramma(startTime);
+                chiudiProgramma(startTime,source);
             }
             
                 
@@ -79,7 +84,7 @@ namespace kryptocoin_master
             Console.ReadLine();
             BotClient.getClient().StopReceiving();
             
-            chiudiProgramma(startTime);
+            chiudiProgramma(startTime,source);
             
         }
 
@@ -150,11 +155,12 @@ namespace kryptocoin_master
             await Task.Run(() => client.SendTextMessageAsync(chatIdDestinatario, testoMessaggio, replyToMessageId: messageId));
         }
 
-        private static void chiudiProgramma(DateTime startTime){
+        private static void chiudiProgramma(DateTime startTime,CancellationTokenSource source){
 
             //int secondi = 0;
             
             DateTime endTime = DateTime.Now;
+            source.Cancel();
             //secondi = fineProgramma.Subtract(startTime).Seconds;
             //Console.WriteLine("Programma chiuso dopo {0} secondi",secondi);
             Logger.WriteLine(LogType.Info,$"Programma iniziato il {startTime} e terminato il {endTime}");
@@ -175,6 +181,21 @@ namespace kryptocoin_master
             Logger.WriteLine(LogType.Update,toWrite);
 
         }
+
+        private static async Task esecuzioneAsincronaIntervalliRegolari(TimeSpan intervallo,CancellationToken token){
+
+            while(true){
+
+                Logger.WriteLineAsync(LogType.Debug,"Prova a intervalli regolari asincroni");
+                await Task.Delay(intervallo); 
+                if(token.IsCancellationRequested)
+                    break;
+            }
+        }
+
+
+
+        
 
     }
 }

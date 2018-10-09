@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace kryptocoin_master.Classi{
 
@@ -66,6 +67,12 @@ namespace kryptocoin_master.Classi{
             Console.WriteLine("{0} | {1} | {2}",DateTime.Now,logtype.Value,data);
             fileCurrentrows++;
             checkFileSize();
+
+        }
+
+        public static async void WriteLineAsync(LogType logtype,string data){
+
+            await Task.Run(()=> Console.WriteLine("{0} | {1} | {2}",DateTime.Now,logtype.Value,data));
 
         }
         private static void checkFileSize(){
