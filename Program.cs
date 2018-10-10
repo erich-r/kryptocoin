@@ -28,10 +28,11 @@ namespace kryptocoin_master
                 Logger.WriteLine(LogType.Error,"Errore! Ho bisogno del nome del bot e della sua chiave API, esegui dotnet run {nomeBot} {chiave}");
                 chiudiProgramma(startTime);
             }
-            TimeSpan intervallo = new TimeSpan(0,5,0);
-            CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
-            APIUpdater.aggiornaApi(token,intervallo);
+
+            LanguageManager lm = new LanguageManager();
+            
+
+            
 
             //db
             Logger.WriteLine(LogType.Info,"Connessione al DB");
@@ -45,7 +46,7 @@ namespace kryptocoin_master
             }
             catch(MySql.Data.MySqlClient.MySqlException e){
                 Logger.WriteLine(LogType.Error,$"Non sono riuscito a connettermi al database, termino il programma.. \nInformazioni errore: {e.Message}");
-                chiudiProgramma(startTime,source);
+                chiudiProgramma(startTime);
             }
             
 
@@ -60,7 +61,7 @@ namespace kryptocoin_master
             }                
             catch(AggregateException e){
                 Logger.WriteLine(LogType.Error,$"Errore nel reperire le informazioni del bot, termino il programma.\nInformazioni errore: {e.Message}");
-                chiudiProgramma(startTime,source);
+                chiudiProgramma(startTime);
             }
             
 
@@ -71,15 +72,15 @@ namespace kryptocoin_master
             }
             catch(Exception e){
                 Logger.WriteLine(LogType.Error,$"Errore: {e.Message}");
-                chiudiProgramma(startTime,source);
+                chiudiProgramma(startTime);
             }
             
             if(BotClient.getClient() == null){
-                chiudiProgramma(startTime,source);
+                chiudiProgramma(startTime);
             }
             
                 
-            LanguageManager lm = new LanguageManager();
+            
 
             Console.Title = me.Username;
             
@@ -91,6 +92,13 @@ namespace kryptocoin_master
             BotClient.getClient().OnReceiveError += e_Error;
                 //BotClient.getClient().OnUpdate += e_Update;
             ImpostazioniBot.nome = me.Username;
+
+            TimeSpan intervallo = new TimeSpan(0,5,0);
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            APIUpdater.aggiornaApi(token,intervallo);
+
+
             Console.ReadLine();
             BotClient.getClient().StopReceiving();
             

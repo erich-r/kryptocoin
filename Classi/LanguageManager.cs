@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using kryptocoin_master;
 using kryptocoin_master.Classi;
 using Newtonsoft.Json;
 public class LanguageManager{
@@ -19,6 +20,15 @@ public class LanguageManager{
 
         string folderPath = "Languages/";
         DirectoryInfo d = new DirectoryInfo(folderPath);
+        FileInfo[] files = null;
+
+        try{
+            files = d.GetFiles("*.json");
+        }
+        catch(DirectoryNotFoundException e){
+            Console.WriteLine($"Errore! directory {folderPath} non trovata! Dettagli errore: {e.Message}");
+            Environment.Exit(1);
+        }
 
         foreach (FileInfo file in d.GetFiles("*.json"))
         {

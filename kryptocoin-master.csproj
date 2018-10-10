@@ -6,6 +6,16 @@
     <RootNamespace>kryptocoin_master</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RuntimeIdentifiers>win10-x64;ubuntu.16.10-x64;osx.10.13-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <!-- 
+  Esempio di release: 
+  dotnet publish -c Release -r win10-x64
+  dotnet publish -c Release -r ubuntu.16.10-x64
+  dotnet publish -c Release -r osx.10.13-x64
+
+   -->
   <ItemGroup>
     <PackageReference Include="mysql.data" Version="8.0.12" />
     <PackageReference Include="newtonsoft.json" Version="11.0.2" />
