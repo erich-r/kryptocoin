@@ -31,7 +31,7 @@ namespace kryptocoin_master
             TimeSpan intervallo = new TimeSpan(0,0,1);
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
-            esecuzioneAsincronaIntervalliRegolari(intervallo,token);
+            APIUpdater.aggiornaApi(token,intervallo);
             //db
             //Logger.WriteLine(LogType.Info,"Connessione al DB");
             //DBConnection dBConnection = DBConnection.Instance();
@@ -191,15 +191,6 @@ namespace kryptocoin_master
 
         }
 
-        private static async Task esecuzioneAsincronaIntervalliRegolari(TimeSpan intervallo,CancellationToken token){
-            while(true){
-
-                Logger.WriteLineAsync(LogType.Debug,$"Prova a intervalli regolari asincroni");
-                await Task.Delay(intervallo); 
-                if(token.IsCancellationRequested)
-                    break;
-            }
-        }
 
         private static void setImpostazioniBot(string nome,string chiaveAPI){
 
