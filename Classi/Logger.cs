@@ -15,7 +15,7 @@ namespace kryptocoin_master.Classi{
         private static int fileCount;
         private static DateTime dateOfStopLoggin;
 
-        private const int FILE_MAX_ROWS = 5000;
+        private const int FILE_MAX_ROWS = 10000;
         private const string FILE_EXTENSION = ".log";
         private static int fileCurrentrows;
 
@@ -73,6 +73,8 @@ namespace kryptocoin_master.Classi{
         public static async void WriteLineAsync(LogType logtype,string data){
 
             await Task.Run(()=> Console.WriteLine("{0} | {1} | {2}",DateTime.Now,logtype.Value,data));
+            fileCurrentrows++;
+            checkFileSize();
 
         }
         private static void checkFileSize(){

@@ -32,20 +32,21 @@ namespace kryptocoin_master
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
             APIUpdater.aggiornaApi(token,intervallo);
-            //db
-            //Logger.WriteLine(LogType.Info,"Connessione al DB");
-            //DBConnection dBConnection = DBConnection.Instance();
-            //dBConnection.DatabaseName = "information_schema";
 
-            //try{
-            //    if(dBConnection.IsConnect()){
-            //        Console.WriteLine("Connessione riuscita!");
-            //    }
-            //}
-            //catch(MySql.Data.MySqlClient.MySqlException e){
-            //    Console.WriteLine("Non sono riuscito a connettermi al database, termino il programma.. \nInformazioni errore: {0}",e.Message);
-            //    abort = true;
-            //}
+            //db
+            Logger.WriteLine(LogType.Info,"Connessione al DB");
+            DBConnection dBConnection = DBConnection.Instance();
+            dBConnection.DatabaseName = "kryptocoinbot";
+
+            try{
+                if(dBConnection.IsConnect()){
+                    Logger.WriteLine(LogType.Info,"Connessione riuscita!");
+                }
+            }
+            catch(MySql.Data.MySqlClient.MySqlException e){
+                Logger.WriteLine(LogType.Error,$"Non sono riuscito a connettermi al database, termino il programma.. \nInformazioni errore: {e.Message}");
+                chiudiProgramma(startTime,source);
+            }
             
 
             
@@ -184,7 +185,7 @@ namespace kryptocoin_master
             {
                 toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
                 //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
-                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient());
+                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient(),m.Chat.FirstName);
             }
 
             Logger.WriteLine(LogType.Update,toWrite);

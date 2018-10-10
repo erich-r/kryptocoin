@@ -1,7 +1,11 @@
 using System.Threading.Tasks;
+
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Types.Enums;
+
+using kryptocoin_master.Classi;
+using MySql.Data.MySqlClient;
 
 namespace kryptocoin_master.Classi.Comandi
 {
@@ -13,6 +17,19 @@ namespace kryptocoin_master.Classi.Comandi
 
         public override async void eseguiComando(long chatID,int idMessaggio, TelegramBotClient clientBot,params string[]parametri)
         {
+            DBConnection db = DBConnection.Instance();
+            MySqlConnection connection = db.Connection;
+            
+            string query = $"INSERT INTO utenti (chatID,nome) VALUES ('{chatID}','{parametri[0]}')";
+            MySqlCommand cmd = new MySqlCommand(query,connection);
+            try{
+                cmd.ExecuteNonQuery();
+            }
+            catch(MySqlException e){
+                Logger.WriteLine(LogType.Error,$"Errore nell'eseguire la query {query}, messaggio: {e.Message}");
+            }
+            Logger.WriteLine(LogType.Info,$"Comando start: ho eseguito la query {query} per inserire l'utente {parametri[0]} ({chatID}) che ha scritto /start");
+            
 
             InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
                     {

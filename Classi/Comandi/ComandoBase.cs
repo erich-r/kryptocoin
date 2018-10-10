@@ -12,6 +12,9 @@ namespace kryptocoin_master.Classi.Comandi{
         public bool verificaComando(string comandoDaControllare)
         {
             bool toRtn = false;
+            //Logger.WriteLine(LogType.Debug,comandoDaControllare);
+            if(comandoDaControllare == null) 
+                return false;
             string[] parole = comandoDaControllare.Split(' ');
 
             if(!richiedeParametri && parole.Length == 1 && comandoDaControllare.Contains(this.nomeComando))
