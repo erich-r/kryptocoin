@@ -28,7 +28,7 @@ namespace kryptocoin_master
                 Logger.WriteLine(LogType.Error,"Errore! Ho bisogno del nome del bot e della sua chiave API, esegui dotnet run {nomeBot} {chiave}");
                 chiudiProgramma(startTime);
             }
-            TimeSpan intervallo = new TimeSpan(0,0,1);
+            TimeSpan intervallo = new TimeSpan(0,5,0);
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
             APIUpdater.aggiornaApi(token,intervallo);

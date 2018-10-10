@@ -24,11 +24,12 @@ namespace kryptocoin_master.Classi.Comandi
             MySqlCommand cmd = new MySqlCommand(query,connection);
             try{
                 cmd.ExecuteNonQuery();
+                Logger.WriteLine(LogType.Info,$"Comando start: ho eseguito la query {query} per inserire l'utente {parametri[0]} ({chatID}) che ha scritto /start");
+
             }
             catch(MySqlException e){
                 Logger.WriteLine(LogType.Error,$"Errore nell'eseguire la query {query}, messaggio: {e.Message}");
             }
-            Logger.WriteLine(LogType.Info,$"Comando start: ho eseguito la query {query} per inserire l'utente {parametri[0]} ({chatID}) che ha scritto /start");
             
 
             InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
