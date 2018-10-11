@@ -21,16 +21,20 @@ namespace kryptocoin_master.Classi.Comandi
             DBConnection db = DBConnection.Instance();
             MySqlConnection connection = db.Connection;
             
-            string query = $"INSERT INTO utenti (chatID,nome) VALUES ('{chatID}','{parametri[0]}')";
+            string query = $"INSERT INTO utenti (chatID,nome) VALUES ('@chatID','@nome')";
             MySqlCommand cmd = new MySqlCommand(query,connection);
+            cmd.Parameters.AddWithValue("@chatID",chatID);
+            cmd.Parameters.AddWithValue("@nome",parametri[0]);
+
+            bool utentePresente = false;
 
             try{
                 cmd.ExecuteNonQuery();
-                Logger.WriteLine(LogType.Info,$"Comando start: ho eseguito la query {query} per inserire l'utente {parametri[0]} ({chatID}) che ha scritto /start");
-
+                Logger.WriteLine(LogType.Info,$"Comando start - ho eseguito la query {query} per inserire l'utente {parametri[0]} ({chatID}) che ha scritto /start");
             }
             catch(MySqlException e){
-                Logger.WriteLine(LogType.Error,$"Errore nell'eseguire la query {query}, messaggio: {e.Message}");
+                Logger.WriteLine(LogType.Error,$"Comando start - Errore nell'eseguire la query {query}, l'utente è gia presente! messaggio: {e.Message}");
+                utentePresente = true;
             }
             
 
@@ -51,7 +55,27 @@ namespace kryptocoin_master.Classi.Comandi
                             InlineKeyboardButton.WithCallbackData("🇨🇳 汉语","/lan chinese")
                         }
                     });
-            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase("Inglese","avvioBot"),replyMarkup:inlineKeyboard,parseMode:ParseMode.Html));
+
+            string lingua = "inglese";
+            if(utentePresente){
+                //Logger.WriteLine(LogType.Info,$"L'utente {parametri[0]} è gia nel DB, quindi cerco al lingua scelta");
+                query = "SELECT lingua FROM utenti WHERE chatID = @chatID";
+                cmd = new MySqlCommand(query,connection);
+                cmd.Parameters.AddWithValue("@chatID",chatID);
+                cmd.ExecuteNonQuery();
+                using(MySqlDataReader reader = cmd.ExecuteReader()){
+
+                    while(reader.Read())
+                        lingua = reader.GetString("lingua");
+
+                }
+
+                Logger.WriteLine(LogType.Info,$"Comando start - L'utente {parametri[0]} è gia nel DB, nel DB ha scelto la lingua {lingua}");
+
+
+            }
+
+            await Task.Run(() => clientBot.SendTextMessageAsync(chatID, LanguageManager.getFrase(lingua,"avvioBot"),replyMarkup:inlineKeyboard,parseMode:ParseMode.Html));
         }
 
     }
