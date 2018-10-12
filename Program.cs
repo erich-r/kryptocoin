@@ -121,7 +121,7 @@ namespace kryptocoin_master
             string toWrite = $"{username} ({id}) ha scritto {messagge}";
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message.Text);
 
-            eseguiComando(comandoDaEseguire,e.Message,toWrite);
+            eseguiComando(comandoDaEseguire,e.Message,toWrite,username,messagge);
             
 
         }
@@ -155,7 +155,7 @@ namespace kryptocoin_master
             
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.CallbackQuery.Data);
             Logger.WriteLine(LogType.Debug,e.CallbackQuery.Message.Text);
-            eseguiComando(comandoDaEseguire,e.CallbackQuery.Message,toWrite);
+            eseguiComando(comandoDaEseguire,e.CallbackQuery.Message,toWrite,nome,e.CallbackQuery.Data);
 
         }
 
@@ -187,13 +187,13 @@ namespace kryptocoin_master
 
         }
 
-        private static void eseguiComando(ComandoBase comandoDaEseguire,Message m,string toWrite){
+        private static void eseguiComando(ComandoBase comandoDaEseguire,Message m,string toWrite,params string[] parametri){
 
             if (comandoDaEseguire != null)
             {
                 toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
                 //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
-                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient(),m.Chat.FirstName);
+                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient(),parametri);
             }
 
             Logger.WriteLine(LogType.Update,toWrite);

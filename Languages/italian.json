@@ -1,0 +1,14 @@
+{
+
+    "avvioBot":"Ciao! Io sono KryptoCoinBot e il mio compito è notificarti del cambio di valore delle criptomonete che ti interessano! Per prima cosa, scegli la lingua che preferisci premendo sulla tastiera! (puoi successivamente cambiarla tramite il comando /lan {lingua})\nAttualmente le uniche lingue supportate sono: **Italiano**,**Inglese**.",
+
+
+    "avvisoWIP":"Funzionalità ancora da implementare",
+
+    "comandoLinguaSenzaParametro":"Il comando /lan necessita di un <b>parametro addizionale</b>!\ne.g. <code>/lan english</code>", 
+    "comandoLinguaTroppiParametri":"Hai inserito troppi parametri! il comando /lan necessita <b>solamente di un parametro</b>!\ne.g. <code>/lan english</code>",
+    "comandoLinguaParametriOrdinatiMale":"Comando errato, è sbagliato l'ordine dei parametri",
+    "comandoLinguaerroreCambioLingua":"Non sono riuscito a cambiare la lingua, segnala il bug a <b>@rhobby</b>",
+    "comandoLinguaEffettuato":"Lingua cambiata con successo!",
+    "comandoLinguaNonAncoraSupportata":"Questa lingua <b>non è ancora supportata</b>...\nSe vuoi contribuire alla traduzione contatta @rhobby!"
+}

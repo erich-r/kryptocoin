@@ -17,10 +17,9 @@ namespace kryptocoin_master.Classi.Comandi{
                 return false;
             string[] parole = comandoDaControllare.Split(' ');
 
-            if(!richiedeParametri && parole.Length == 1 && comandoDaControllare.Contains(this.nomeComando))
+            if(comandoDaControllare.Contains(this.nomeComando))
                 toRtn = true;
-            else if(richiedeParametri && parole.Length > 1 && comandoDaControllare.Contains(this.nomeComando))
-                toRtn = true;
+
 
             return toRtn;
         }

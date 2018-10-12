@@ -1,0 +1,15 @@
+{
+
+    "avvioBot":"Hello! I am <b>KryptoCoinBot</b> and my job is to notify you of the change in the value of the cryptocurrencies that interest you!\nFirst, choose the language you prefer by pressing on the keyboard! (You can later change the it using the <code>/lan {language}</code> command).\nCurrently the only languages supported are: <b>Italian</b>, <b>English</b>.",
+
+
+
+
+    "avvisoWIP":"This function is currently <b>WIP</b> (<b>W</b>ork <b>I</b>n <b>P</b>rogress)",
+    "comandoLinguaSenzaParametro":"The /lan command requires an <b>additional parameter</b>!\ne.g. <code>/lan english</code>", 
+    "comandoLinguaTroppiParametri":"You have entered too many parameters! the /lan command only needs <b>one</b>!\ne.g. <code>/lan english</code>",
+    "comandoLinguaParametriOrdinatiMale":"Incorrect command, the order of the parameters is wrong",
+    "comandoLinguaerroreCambioLingua":"I could not change the language, report the bug to <b>@rhobby</b>",
+    "comandoLinguaEffettuato":"Language changed succesfully!",
+    "comandoLinguaNonAncoraSupportata":"This language <b>is not supported yet</b>...\nIf you want to contribute to the translation contact @rhobby!"
+}

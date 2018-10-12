@@ -21,10 +21,13 @@ namespace kryptocoin_master.Classi.Comandi
             DBConnection db = DBConnection.Instance();
             MySqlConnection connection = db.Connection;
             
-            string query = $"INSERT INTO utenti (chatID,nome) VALUES ('@chatID','@nome')";
+            string query = $"INSERT INTO utenti (chatID,nome) VALUES (?chatID,?nome);";
+            
             MySqlCommand cmd = new MySqlCommand(query,connection);
-            cmd.Parameters.AddWithValue("@chatID",chatID);
-            cmd.Parameters.AddWithValue("@nome",parametri[0]);
+            cmd.Parameters.AddWithValue("?chatID",chatID);
+            cmd.Parameters.AddWithValue("?nome",parametri[0]);
+
+            Logger.WriteLine(LogType.Debug,query + " " + parametri[0]);
 
             bool utentePresente = false;
 
