@@ -59,7 +59,7 @@ namespace kryptocoin_master.Classi.Comandi
                         }
                     });
 
-            string lingua = "inglese";
+            string lingua = "english";
             if(utentePresente){
                 //Logger.WriteLine(LogType.Info,$"L'utente {parametri[0]} è gia nel DB, quindi cerco al lingua scelta");
                 query = "SELECT lingua FROM utenti WHERE chatID = @chatID";

@@ -4,6 +4,6 @@ CREATE TABLE utenti (
 
     chatID BIGINT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
-    lingua VARCHAR(15) DEFAULT 'inglese' NOT NULL
+    lingua VARCHAR(15) DEFAULT 'english' NOT NULL
 
 );
