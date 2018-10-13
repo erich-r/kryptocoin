@@ -57,6 +57,7 @@ namespace kryptocoin_master.Classi{
             listaComandi.Add(new ComandoHelloWorld());
             listaComandi.Add(new ComandoStart());
             listaComandi.Add(new ComandoLanguage());
+            listaComandi.Add(new ComandoFeedback());
             Logger.WriteLine(LogType.Info,"Ho fornito i comandi da eseguire al BOT");
         }
         

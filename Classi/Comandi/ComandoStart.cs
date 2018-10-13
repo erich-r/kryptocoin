@@ -59,19 +59,12 @@ namespace kryptocoin_master.Classi.Comandi
                         }
                     });
 
-            string lingua = "english";
+            string lingua = "";
             if(utentePresente){
                 //Logger.WriteLine(LogType.Info,$"L'utente {parametri[0]} è gia nel DB, quindi cerco al lingua scelta");
-                query = "SELECT lingua FROM utenti WHERE chatID = @chatID";
-                cmd = new MySqlCommand(query,connection);
-                cmd.Parameters.AddWithValue("@chatID",chatID);
-                cmd.ExecuteNonQuery();
-                using(MySqlDataReader reader = cmd.ExecuteReader()){
+                lingua = LanguageManager.getLinguaUtente(chatID);
 
-                    while(reader.Read())
-                        lingua = reader.GetString("lingua");
-
-                }
+                
 
                 Logger.WriteLine(LogType.Info,$"Comando start - L'utente {parametri[0]} è gia nel DB, nel DB ha scelto la lingua {lingua}");
 

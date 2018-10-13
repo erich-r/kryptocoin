@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using kryptocoin_master;
 using kryptocoin_master.Classi;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 public class LanguageManager{
 
@@ -69,6 +70,35 @@ public class LanguageManager{
     public static string getFrase(string lingua,string contesto){
 
         return lingue[lingua][contesto];
+
+    }
+
+    public static string getLinguaUtente(long chatIdUtente){
+
+        //in caso non riuscissi a trovare la lingua uso l'inlese come default
+        string toRtn = "english";
+        string query = "SELECT lingua FROM utenti WHERE chatID = ?chatID";
+        MySqlCommand cmd;
+
+        MySqlConnection connection = DBConnection.Instance().Connection;
+
+        cmd = new MySqlCommand(query,connection);
+        cmd.Parameters.AddWithValue("?chatID",chatIdUtente);
+        try{
+            cmd.ExecuteNonQuery();
+        }
+        catch(MySqlException e){
+            Logger.WriteLine(LogType.Error,$"Language Manager - Errore nell'ottenere la lingua dell'utente {chatIdUtente}, errore nel dettaglio: {e.Message}");
+            return toRtn;
+        }
+        using(MySqlDataReader reader = cmd.ExecuteReader()){
+
+            while(reader.Read())
+                toRtn = reader.GetString("lingua");
+
+        }
+        
+        return toRtn;
 
     }
 
