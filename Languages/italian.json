@@ -11,7 +11,7 @@
     "comandoLinguaerroreCambioLingua":"Non sono riuscito a cambiare la lingua, segnala il bug a <b>@rhobby</b>",
     "comandoLinguaEffettuato":"Lingua cambiata con successo!",
     "comandoLinguaNonAncoraSupportata":"Questa lingua <b>non è ancora supportata</b>...\nSe vuoi contribuire alla traduzione contatta @robbhy!",
-    "segnalazione":"<b>Un utente ha effettuato una segnalazione!</b>\n",
+    "segnalazione":"<b>Un utente ha effettuato un #Feedback!</b>\n",
     "segnalazioneEffettuata":"Feedback inviato correttamente!",
     "errore":"Qualcosa è andato storto!\nPer favore, <b>segnala</b> l'errore mediante il comando <code>/feeback {testo}</code>!"
 
