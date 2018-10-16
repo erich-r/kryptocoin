@@ -1,1 +1,1 @@
-SELECT * FROM utenti;
+SELECT COUNT(*) FROM UTENTI WHERE isAdmin = 1

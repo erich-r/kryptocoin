@@ -1,6 +1,6 @@
 {
 
-    "avvioBot":"Ciao! Io sono KryptoCoinBot e il mio compito è notificarti del cambio di valore delle criptomonete che ti interessano! Per prima cosa, scegli la lingua che preferisci premendo sulla tastiera! (puoi successivamente cambiarla tramite il comando /lan {lingua})\nAttualmente le uniche lingue supportate sono: **Italiano**,**Inglese**.",
+    "avvioBot":"Ciao! Io sono KryptoCoinBot e il mio compito è notificarti del cambio di valore delle criptomonete che ti interessano! Per prima cosa, scegli la lingua che preferisci premendo sulla tastiera! (puoi successivamente cambiarla tramite il comando /lan {lingua})\nAttualmente le uniche lingue supportate sono: <b>Italiano</b>,<b>Inglese</b>.",
 
 
     "avvisoWIP":"Funzionalità ancora da implementare",
@@ -10,5 +10,9 @@
     "comandoLinguaParametriOrdinatiMale":"Comando errato, è sbagliato l'ordine dei parametri",
     "comandoLinguaerroreCambioLingua":"Non sono riuscito a cambiare la lingua, segnala il bug a <b>@rhobby</b>",
     "comandoLinguaEffettuato":"Lingua cambiata con successo!",
-    "comandoLinguaNonAncoraSupportata":"Questa lingua <b>non è ancora supportata</b>...\nSe vuoi contribuire alla traduzione contatta @rhobby!"
+    "comandoLinguaNonAncoraSupportata":"Questa lingua <b>non è ancora supportata</b>...\nSe vuoi contribuire alla traduzione contatta @robbhy!",
+    "segnalazione":"<b>Un utente ha effettuato una segnalazione!</b>\n",
+    "segnalazioneEffettuata":"Feedback inviato correttamente!",
+    "errore":"Qualcosa è andato storto!\nPer favore, <b>segnala</b> l'errore mediante il comando <code>/feeback {testo}</code>!"
+
 }

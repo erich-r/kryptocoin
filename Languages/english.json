@@ -11,5 +11,8 @@
     "comandoLinguaParametriOrdinatiMale":"Incorrect command, the order of the parameters is wrong",
     "comandoLinguaerroreCambioLingua":"I could not change the language, report the bug to <b>@rhobby</b>",
     "comandoLinguaEffettuato":"Language changed succesfully!",
-    "comandoLinguaNonAncoraSupportata":"This language <b>is not supported yet</b>...\nIf you want to contribute to the translation contact @rhobby!"
+    "comandoLinguaNonAncoraSupportata":"This language <b>is not supported yet</b>...\nIf you want to contribute to the translation contact @rhobby!",
+    "segnalazione":"<b>A user submitted a feedback!</b>\n",
+    "segnalazioneEffettuata":"Your feedback was submitted succesfully!",
+    "errore":"An error occured!\nPlease, <b>report</b> the error via <code>/feeback {text}</code> command!"
 }
