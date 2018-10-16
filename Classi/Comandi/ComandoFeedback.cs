@@ -14,6 +14,12 @@ namespace kryptocoin_master.Classi.Comandi{
         public override void eseguiComando(long chatID, int idMessaggio, TelegramBotClient clientBot, params string[] parametri)
         {
 
+            inviaSegnalazione(chatID,clientBot,parametri);
+
+        }
+
+        private void inviaSegnalazione(long chatID,TelegramBotClient clientBot,string[] parametri){
+            
             string lingua = LanguageManager.getLinguaUtente(chatID);
             string toWrite = LanguageManager.getFrase(lingua,"errore");
 
@@ -49,7 +55,6 @@ namespace kryptocoin_master.Classi.Comandi{
             Task.Run(() => clientBot.SendTextMessageAsync(chatID,LanguageManager.getFrase(lingua,"segnalazioneEffettuata"),parseMode:ParseMode.Html));
 
             //string[] comandoDigitato = parametri[1].Split(" ");
-
         }
 
 

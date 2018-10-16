@@ -14,5 +14,6 @@
     "comandoLinguaNonAncoraSupportata":"This language <b>is not supported yet</b>...\nIf you want to contribute to the translation contact @rhobby!",
     "segnalazione":"<b>A user submitted a #Feedback!</b>\n",
     "segnalazioneEffettuata":"Your feedback was submitted succesfully!",
-    "errore":"An error occured!\nPlease, <b>report</b> the error via <code>/feeback {text}</code> command!"
+    "errore":"An error occured!\nPlease, <b>report</b> the error via <code>/feeback {text}</code> command!",
+    "comandoNonRiconosciuto":"You just type an unrecognized command..."
 }

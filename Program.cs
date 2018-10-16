@@ -121,8 +121,13 @@ namespace kryptocoin_master
             string toWrite = $"{username} ({id}) ha scritto {messagge}";
             ComandoBase comandoDaEseguire = BotClient.comandoDigitato(e.Message.Text);
 
-            eseguiComando(comandoDaEseguire,e.Message,toWrite,username,messagge);
-            
+            try{
+                eseguiComando(comandoDaEseguire,e.Message,toWrite,username,messagge);
+            }
+            catch(NullReferenceException error){
+                Logger.WriteLine(LogType.Error,$"Errore: {username} ({id}) ha scritto un comando non riconosciuto dal bot! errore: {error.Message}");
+                Task.Run(() => BotClient.getClient().SendTextMessageAsync(id,LanguageManager.getFrase(LanguageManager.getLinguaUtente(id),"comandoNonRiconosciuto")));
+            }
 
         }
 
@@ -189,12 +194,10 @@ namespace kryptocoin_master
 
         private static void eseguiComando(ComandoBase comandoDaEseguire,Message m,string toWrite,params string[] parametri){
 
-            if (comandoDaEseguire != null)
-            {
-                toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
-                //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
-                comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient(),parametri);
-            }
+            toWrite += $" - Eseguo il comando {comandoDaEseguire.nomeComando}";
+            //Logger.Write($" - Eseguo il comando {comandoDaEseguire.nomeComando}");
+            comandoDaEseguire.eseguiComando(m.Chat.Id,m.MessageId, BotClient.getClient(),parametri);
+
 
             Logger.WriteLine(LogType.Update,toWrite);
 
