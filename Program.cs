@@ -126,7 +126,7 @@ namespace kryptocoin_master
             }
             catch(NullReferenceException error){
                 Logger.WriteLine(LogType.Error,$"Errore: {username} ({id}) ha scritto un comando non riconosciuto dal bot! errore: {error.Message}");
-                Task.Run(() => BotClient.getClient().SendTextMessageAsync(id,LanguageManager.getFrase(LanguageManager.getLinguaUtente(id),"comandoNonRiconosciuto")));
+                inviaMessaggio(BotClient.getClient(),LanguageManager.getFrase(LanguageManager.getLinguaUtente(id),"comandoNonRiconosciuto"),id);
             }
 
         }
